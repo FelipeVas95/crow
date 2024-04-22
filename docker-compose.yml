@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    container_name: app-crow
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app-api
+      SERVICE_TAGS: dev
+    working_dir: /var/www/crow
+    extra_hosts:
+          - host.docker.internal:host-gateway
+    networks:
+      - app-network
+    volumes:
+      - ./:/var/www/crow
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/var/www/crow
+      - ./.nginx:/etc/nginx/conf.d/
+    networks:
+      - app-network
+  db:
+    image: mysql:8.0
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: crowbd
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  dbdata:
+    driver: local

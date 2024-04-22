@@ -1,0 +1,12 @@
+
+.image {
+    display: none;
+    width: 200px;
+    /* Ajusta el tamaño según tus necesidades */
+    height: 200px;
+    /* Ajusta el tamaño según tus necesidades */
+}
+
+.active {
+    display: block;
+}
