@@ -15,6 +15,7 @@ services:
       - app-network
     volumes:
       - ./:/var/www/crow
+      - ./.php/php.ini:/etc/php/8.3/fpm/php.ini
   webserver:
     image: nginx:alpine
     container_name: webserver
@@ -35,15 +36,14 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_DATABASE: crowbd
+      MYSQL_DATABASE: crowdb
       MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     networks:
       - app-network
+    volumes:
+      - .\database\crowdb.sql:/var/BD/crowdb.sql
 networks:
   app-network:
     driver: bridge
-volumes:
-  dbdata:
-    driver: local
