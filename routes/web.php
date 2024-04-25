@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-use app\Models\User;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,9 +41,11 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/users', function () {
-        $users = User::all();
-        return Inertia::render('Users',compact('users'));
-    })->name('users');
+
+    Route::get('/users', [UsersController::class, 'index'])->name('users');
+
+    // Otras rutas CRUD para usuarios utilizando Inertia
+    //Route::resource('/users', UsersController::class)->except(['index']);
 
 });
+
