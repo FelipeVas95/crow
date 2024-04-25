@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use app\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,13 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\GoogleSocialiteController;
+
+// And in the end append login and callback routes
+// Google login
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -32,11 +40,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/users', function () {
+        $users = User::all();
+        return Inertia::render('Users',compact('users'));
+    })->name('users');
+
 });
-
-use App\Http\Controllers\GoogleSocialiteController;
-
-// And in the end append login and callback routes
-// Google login
-Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
-Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
