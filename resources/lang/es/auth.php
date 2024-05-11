@@ -18,4 +18,7 @@ return [
     'Age' => 'Edad',
     'Gender' => 'Genero',
     'Height' => 'Estatura',
+    'Users' => 'Usuarios',
+    'User' => 'Usuario',
+
 ];

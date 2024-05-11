@@ -18,4 +18,6 @@ return [
     'Age' => 'Age',
     'Gender' => 'Gender',
     'Height' => 'Height',
+    'Users' => 'Users',
+    'User' => 'User',
 ];

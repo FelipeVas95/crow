@@ -10,7 +10,11 @@ use app\Models\User;
 class UsersController extends Controller
 {
     public function index() {
+
         $users = User::all();
-        return Inertia::render('Users', compact('users'));
+        return Inertia::render('Users',         [
+            'users' =>  $users ,
+        ]
+    );
     }
 }

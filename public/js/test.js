@@ -1,11 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const images = document.querySelectorAll(".image");
     let currentIndex = 0;
-    
-function getRandomNumber(min, max) {
-    // Obtiene un número aleatorio en [0, 1) y lo ajusta al rango [min, max)
-    return Math.random() * (max - min) + min;
-}
 
 
     function toggleImages() {
